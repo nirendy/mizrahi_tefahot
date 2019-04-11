@@ -1,4 +1,5 @@
 const request = require("request");
+const database = require("./database");
 
 const token =
   "[REDACTED]";
@@ -20,7 +21,8 @@ const sendMessage = (phone, message) => {
 
   request(options, function(error, response, body) {
     if (error) throw new Error(error);
-    console.log(body);
+    var logMessage = "Message sent to the person";
+    //database.writeNewLog(phone, logMessage);
   });
 };
 
