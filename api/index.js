@@ -6,4 +6,9 @@ api.get("/sendMessage", (req, res) => {
   res.status(200).json({ message: "Message sent to blahs" });
 });
 
+api.post("/webHook", (req, res) => {
+  console.log(req.body.data);
+  res.status(200).json({ message: "Webhook reached" });
+});
+
 module.exports = api;
