@@ -18,9 +18,10 @@ api.get("/getMessages", (req, res) => {
 
 api.post("/webHookGetMessage", (req, res) => {
   console.log(req.body.data);
-  //var number = req.body.data.fromNumber;
-  //var message = req.body.data.body;
-  // database.writeNewLog(number, message)
+  let number = req.body.data.fromNumber;
+  let message = req.body.data.body;
+  let 
+  database.writeNewLog(number, message);
   res.status(200).json({ message: "Webhook get message reached" });
 });
 

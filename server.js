@@ -5,6 +5,7 @@ const app = express();
 const firebase = require("firebase");
 const database = require("./api/database");
 const port = process.env.PORT || 3000;
+const path = require("path");
 
 // Initialize Firebase
 // TODO: Replace with your project's customized code snippet
@@ -24,7 +25,8 @@ database.writeNewLog("0547303639", "new message");
 //require('./middleware/appMiddleware')(app);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-//app.use(express.static(path.join(__dirname, '../dist'), { maxAge: cacheTime }));
+
+app.use(express.static(path.join(__dirname, "./client/build")));
 
 // setup the api
 app.use("/api/", api);
