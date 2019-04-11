@@ -18,7 +18,7 @@ var config = {
 };
 firebase.initializeApp(config);
 
-database.writeNewLog("0541111111", "1", "10:38", "my message");
+database.writeNewLog("0547303639", "new message");
 
 // setup the app middlware
 //require('./middleware/appMiddleware')(app);
