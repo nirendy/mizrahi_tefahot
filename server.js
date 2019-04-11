@@ -1,13 +1,12 @@
-const path = require("path");
 const express = require("express");
 const api = require("./api");
-const request = require("request");
-
+const bodyParser = require("body-parser");
 const app = express();
 
 // setup the app middlware
 //require('./middleware/appMiddleware')(app);
-
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 //app.use(express.static(path.join(__dirname, '../dist'), { maxAge: cacheTime }));
 
 // setup the api
