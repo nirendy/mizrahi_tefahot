@@ -1,22 +1,48 @@
-var firebase = require("firebase");
+const firebase = require("firebase");
+const phoneNumberConverter = require("./../phoneNumberConverter");
 
-const writeNewLog = (userId, message, contactName) => {
+const writeNewLog = (phoneNumber, message, name) => {
+  console.log("adding new log");
   var today = new Date();
+  var time = `${showNumber(today.getHours())}:${showNumber(
+    today.getMinutes()
+  )}`;
 
-  console.log("im here");
-  var time = `${today.getHours()}:${today.getMinutes()}`;
   firebase
     .database()
-    .ref("logs/" + userId + "/" + time)
+    .ref(
+      "logs/" +
+        phoneNumberConverter.fromAbroadToIsraeli(phoneNumber) +
+        "/" +
+        time
+    )
     .set({
       time: time,
       message: message,
-      contactName: contactName
+      name: name
     });
 };
 
+const addNewUser = (phoneNumber, name, imageUrl) => {
+  console.log("adding new user");
+  phoneNumber = phoneNumberConverter.fromAbroadToIsraeli(phoneNumber);
+  firebase
+    .database()
+    .ref("users/" + phoneNumber)
+    .set({
+      phoneNumber,
+      name,
+      imageUrl,
+      actionItems: [],
+      date: Date.now()
+    });
+};
+
+const showNumber = number => (number < 10 ? `0${number}` : number);
+
 const database = {
-  writeNewLog
+  writeNewLog,
+  addNewUser
 };
 
 module.exports = database;
