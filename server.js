@@ -1,22 +1,35 @@
-var request = require("request");
+const path = require("path");
+const express = require("express");
+const api = require("./api");
+const request = require("request");
 
-var options = {
-  method: "POST",
-  url: "https://api.wassenger.com/v1/messages",
-  headers: {
-    token:
-      "5b90d5dbc765832d3c965564dfd6f229a251c465b4d1cc39ecca07b9a740664de6c59b805a8111c2",
-    "content-type": "application/json"
-  },
-  body: {
-    phone: "+972547303639",
-    message: "אהלן!"
-  },
-  json: true
-};
+const app = express();
 
-request(options, function(error, response, body) {
-  if (error) throw new Error(error);
+// setup the app middlware
+//require('./middleware/appMiddleware')(app);
 
-  console.log(body);
-});
+//app.use(express.static(path.join(__dirname, '../dist'), { maxAge: cacheTime }));
+
+// setup the api
+app.use("/api/", api);
+
+// BrowserHistory code - We need this so react router could work.
+// app.get('*', (req, res) => {
+//   res.sendFile(path.resolve(__dirname, '../dist', 'index.html'));
+// });
+
+// app.use((err, req, res) => {
+//   // if error thrown from jwt validation check <- In the future
+//   // if (err.name === 'UnauthorizedError') {
+//   //   res.status(401).send('Invalid token');
+//   //   return;
+//   // }
+
+//   res.status(500).send('Error');
+// });
+
+app.listen(3000);
+
+console.log(`listening on port 3000`);
+
+module.exports = app;
