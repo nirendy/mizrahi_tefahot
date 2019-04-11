@@ -1,8 +1,7 @@
 const service = require("./service");
-const database = require("./database");
 const api = require("express").Router();
 
-const testPhoneNumber = "+972547303639";
+const testPhoneNumber = "+972542048003";
 
 api.get("/sendMessage", (req, res) => {
   service.sendMessage(testPhoneNumber, "Checking the API");
@@ -17,12 +16,12 @@ api.get("/getMessages", (req, res) => {
 });
 
 api.post("/webHookGetMessage", (req, res) => {
-  console.log(req.body.data);
-  let number = req.body.data.fromNumber;
+  let phoneNumber = req.body.data.fromNumber;
   let message = req.body.data.body;
-  let contactName = req.body.data.chat.contact.name | "רון";
-  console.log(contactName);
-  database.writeNewLog(number, message, contactName);
+  let name = req.body.data.chat.contact.displayName;
+  let imageUrl = req.body.data.chat.contact.imageUrl;
+  service.handleMessageThatWasReceived(phoneNumber, message, name, imageUrl);
+
   res.status(200).json({ message: "Webhook get message reached" });
 });
 

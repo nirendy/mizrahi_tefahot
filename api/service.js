@@ -1,8 +1,9 @@
 const request = require("request");
 const database = require("./database");
+const utf8 = require("utf8");
 
 const token =
-  "5b90d5dbc765832d3c965564dfd6f229a251c465b4d1cc39ecca07b9a740664de6c59b805a8111c2";
+  "16ae915d9afaad3931e425657892c6354e20f785018b749e62b5892e2172f8a15250f644c485e1cb";
 
 const sendMessage = (phone, message) => {
   var options = {
@@ -42,9 +43,16 @@ const getMessages = (phone, cb) => {
   });
 };
 
+const handleMessageThatWasReceived = (phoneNumber, message, name, imageUrl) => {
+  console.log(utf8.encode(message));
+  database.writeNewLog(phoneNumber, message, name);
+  database.addNewUser(phoneNumber, name, imageUrl);
+};
+
 const service = {
   sendMessage,
-  getMessages
+  getMessages,
+  handleMessageThatWasReceived
 };
 
 module.exports = service;
