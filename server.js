@@ -2,6 +2,22 @@ const express = require("express");
 const api = require("./api");
 const bodyParser = require("body-parser");
 const app = express();
+const firebase = require("firebase");
+const database = require("./api/database");
+
+// Initialize Firebase
+// TODO: Replace with your project's customized code snippet
+var config = {
+    apiKey: "AIzaSyAAteZKRTGZYBD6623fD1j-vW9bOCx6gQs",
+    authDomain: "mizrahitefahot-cbc1e.firebaseapp.com",
+    databaseURL: "https://mizrahitefahot-cbc1e.firebaseio.com",
+    projectId: "mizrahitefahot-cbc1e",
+    storageBucket: "mizrahitefahot-cbc1e.appspot.com",
+    messagingSenderId: "1020005510202"
+};
+firebase.initializeApp(config);
+
+database.writeNewLog("0541111111", "1", "10:38", "my message")
 
 // setup the app middlware
 //require('./middleware/appMiddleware')(app);
