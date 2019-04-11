@@ -2,6 +2,7 @@ const express = require("express");
 const api = require("./api");
 const bodyParser = require("body-parser");
 const app = express();
+<<<<<<< Updated upstream
 const firebase = require("firebase");
 const database = require("./api/database");
 
@@ -18,6 +19,9 @@ var config = {
 firebase.initializeApp(config);
 
 database.writeNewLog("0541111111", "1", "10:38", "my message")
+=======
+const port = process.env.PORT || 3000;
+>>>>>>> Stashed changes
 
 // setup the app middlware
 //require('./middleware/appMiddleware')(app);
@@ -43,8 +47,8 @@ app.use("/api/", api);
 //   res.status(500).send('Error');
 // });
 
-app.listen(3000);
+app.listen(port);
 
-console.log(`listening on port 3000`);
+console.log(`listening on port ${port}`);
 
 module.exports = app;
