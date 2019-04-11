@@ -3,8 +3,7 @@ const api = require("./api");
 const bodyParser = require("body-parser");
 const app = express();
 const firebase = require("firebase");
-const database = require("./api/database");
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 const path = require("path");
 
 // Initialize Firebase
@@ -18,8 +17,6 @@ var config = {
   messagingSenderId: "1020005510202"
 };
 firebase.initializeApp(config);
-
-database.writeNewLog("0547303639", "new message");
 
 // setup the app middlware
 //require('./middleware/appMiddleware')(app);
