@@ -20,6 +20,7 @@ api.post("/webHookGetMessage", (req, res) => {
   let message = req.body.data.body;
   let name = req.body.data.chat.contact.displayName;
   let imageUrl = req.body.data.chat.contact.imageUrl;
+
   service.handleMessageThatWasReceived(phoneNumber, message, name, imageUrl);
 
   res.status(200).json({ message: "Webhook get message reached" });
