@@ -27,6 +27,33 @@ const sendMessage = (phone, message) => {
   });
 };
 
+const sendMessageWithFile = (phone, message, fileId) => {
+  var options = {
+    method: "POST",
+    url: "https://api.wassenger.com/v1/messages",
+    headers: {
+      token: token,
+      "content-type": "application/json"
+    },
+    body: {
+      phone,
+      media: {
+        file: fileId,
+        message: message
+      }
+    },
+    json: true
+  };
+
+  request(options, function(error, response, body) {
+    if (error) throw new Error(error);
+    var logMessage = "Message sent to the person";
+    //database.writeNewLog(phone, logMessage);
+  });
+};
+
+//arvutApril
+
 const getMessages = (phone, cb) => {
   var options = {
     method: "GET",
@@ -44,22 +71,22 @@ const getMessages = (phone, cb) => {
 };
 
 const handleMessageThatWasReceived = (phoneNumber, message, name, imageUrl) => {
+  console.log(message);
   if (
     message.indexOf("עובר ושב") > -1 ||
     message.indexOf('עו"ש') > -1 ||
     message.indexOf("עוברושב") > -1
   ) {
-    let responseMessage = `היי ${name}. מדבר רובין העוזר הוירטואלי של רן. `;
-    sendMessage(phoneNumber, responseMessage);
-  }
+    sendMessage(
+      phoneNumber,
+      "תודה על הבקשה. אני מצרף את חשבון העובר ושב לחודש אפריל"
+    );
 
-  if (
-    message.indexOf("עובר ושב") > -1 ||
-    message.indexOf('עו"ש') > -1 ||
-    message.indexOf("עוברושב") > -1
-  ) {
-    let responseMessage = `היי ${name}. מדבר רובין העוזר הוירטואלי של רן. `;
-    sendMessage(phoneNumber, responseMessage);
+    sendMessageWithFile(
+      phoneNumber,
+      "עובר ושב לחודש אפריל",
+      "5cafe20b8046d9001baddeb3"
+    );
   }
 
   if (
@@ -67,19 +94,21 @@ const handleMessageThatWasReceived = (phoneNumber, message, name, imageUrl) => {
     message.indexOf("ערבות") > -1 ||
     message.indexOf("בנקאית") > -1
   ) {
+    var responseMessage = `מדובר בפעולה מורכבת. אעדכן את רן והוא יחזור אלייך בהקדם האפשרי`;
     database.addNewUser(
       phoneNumber,
       name,
       imageUrl,
       `לדבר עם ${name} לגבי ערבות בנקאית`
     );
-  }
 
-  // database.addNewUser(phoneNumber, name, imageUrl);
+    sendMessage(phoneNumber, responseMessage);
+  }
 };
 
 const service = {
   sendMessage,
+  sendMessageWithFile,
   getMessages,
   handleMessageThatWasReceived
 };
