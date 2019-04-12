@@ -23,8 +23,12 @@ const writeNewLog = (phoneNumber, message, name) => {
     });
 };
 
-const addNewUser = (phoneNumber, name, imageUrl) => {
+const addNewUser = (phoneNumber, name, imageUrl, actionItem) => {
   console.log("adding new user");
+  var today = new Date();
+  var time = `${showNumber(today.getHours())}:${showNumber(
+    today.getMinutes()
+  )}`;
   phoneNumber = phoneNumberConverter.fromAbroadToIsraeli(phoneNumber);
   firebase
     .database()
@@ -33,15 +37,14 @@ const addNewUser = (phoneNumber, name, imageUrl) => {
       phoneNumber,
       name,
       imageUrl,
-      actionItems: [],
-      date: Date.now()
+      actionItem,
+      time
     });
 };
 
 const showNumber = number => (number < 10 ? `0${number}` : number);
 
 const database = {
-  writeNewLog,
   addNewUser
 };
 
