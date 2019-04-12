@@ -15,6 +15,7 @@ import {
 import UserStore from "app/stores/UserStore";
 import {Table} from 'semantic-ui-react';
 import {computed} from "mobx";
+import UserRow from "app/components/UserRow";
 
 export interface TodoAppProps extends RouteComponentProps<any> {
     /** MobX Stores will be injected via @inject() **/
@@ -118,23 +119,36 @@ export class TodoApp extends React.Component<TodoAppProps, TodoAppState> {
                     justifyContent: 'flex-end'
                 }}
             >
-                <Table textAlign='right'>
+                <Table
+                    textAlign='right'
+                    style={{
+                        width: '100%',
+                    }}
+                >
                     <Table.Header>
-                        <Table.Row>
-                            <Table.HeaderCell style={{backgroundColor: '#e4781a'}}>לקוח</Table.HeaderCell>
-                            <Table.HeaderCell>פעולות</Table.HeaderCell>
+                        <Table.Row
+                            style={{
+                                height: '8vh',
+                                color: 'white',
+                            }}
+                        >
+                            <Table.HeaderCell
+                                style={{
+                                    backgroundColor: '#393b3e',
+                                    width: '50%'
+                                }}
+                            >פעולות</Table.HeaderCell>
+                            <Table.HeaderCell
+                                style={{
+                                    backgroundColor: '#e4781a',
+                                    width: '50%'
+                                }}
+                            >לקוח</Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
                         {userStore.users.map((user) => (
-                            <Table.Row key={user.phoneNumber}>
-                                <Table.Cell>
-                                    {user.name}
-                                </Table.Cell>
-                                <Table.Cell>
-                                    {user.phoneNumber}
-                                </Table.Cell>
-                            </Table.Row>
+                            <UserRow key={user.phoneNumber} user={user}/>
                         ))}
                     </Table.Body>
                 </Table>

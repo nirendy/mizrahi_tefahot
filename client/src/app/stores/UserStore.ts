@@ -23,8 +23,8 @@ export class UserStore {
                         obj.name,
                         obj.imageUrl,
                         obj.phoneNumber,
-                        [],
-                        obj.date,
+                        obj.actionItem,
+                        obj.time,
                     );
                 });
             });

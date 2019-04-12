@@ -6,7 +6,9 @@ body {
     padding: 0;
     height: 100%;
     width: 100%;
+    font-family: 'Assistant', sans-serif;
 }
+
 
 /*button {*/
 /*  margin: 0;*/
