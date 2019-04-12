@@ -12,7 +12,7 @@ export class Root extends React.Component<any, any> {
     return (
       <div className="container" style={{height: '100%'}}>
         {this.props.children}
-        {this.renderDevTool()}
+        {/*{this.renderDevTool()}*/}
       </div>
     );
   }

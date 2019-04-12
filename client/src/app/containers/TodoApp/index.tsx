@@ -13,9 +13,12 @@ import {
     TodoFilter, STORE_USER
 } from 'app/constants';
 import UserStore from "app/stores/UserStore";
-import {Table} from 'semantic-ui-react';
+import {Image, Table} from 'semantic-ui-react';
 import {computed} from "mobx";
 import UserRow from "app/components/UserRow";
+
+let ranMizImg = require('../../../assets/ran_miz.jpeg');
+let logoImg = require('../../../assets/Logo.gif');
 
 export interface TodoAppProps extends RouteComponentProps<any> {
     /** MobX Stores will be injected via @inject() **/
@@ -116,7 +119,8 @@ export class TodoApp extends React.Component<TodoAppProps, TodoAppState> {
                     height: '100%',
                     display: 'flex',
                     alignItems: 'start',
-                    justifyContent: 'flex-end'
+                    justifyContent: 'flex-end',
+                    overflow: 'auto'
                 }}
             >
                 <Table
@@ -164,8 +168,50 @@ export class TodoApp extends React.Component<TodoAppProps, TodoAppState> {
                     display: 'flex',
                     height: '15vh',
                     backgroundColor: '#525558',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    paddingRight: '40px',
+                    paddingLeft: '40px'
                 }}
             >
+                <div
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                    }}
+                >
+                    <Image
+                        src={logoImg}
+                        style={{
+                            height: '40%',
+                        }}
+                    />
+                </div>
+
+                <div
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                    }}
+                >
+                    <div>
+                        <span
+                            style={{
+                                whiteSpace: 'pre',
+                                paddingRight: '15px',
+                                paddingTop: '15px',
+                                color: '#e4781a',
+                            }}
+                        >רן מזרחי</span>
+                    </div>
+                    <Image
+                        src={ranMizImg}
+                        style={{
+                            height: '50%',
+                            borderRadius: '50%',
+                        }}
+                    />
+                </div>
             </div>
         );
     }
